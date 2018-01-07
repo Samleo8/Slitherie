@@ -114,6 +114,8 @@ var Game = function(){
             }
         }
         
+        this.updateHighscores();
+        
         //Initialise Gameboard
         var out = "<table id='gameboard'>";
         
@@ -297,14 +299,27 @@ var Game = function(){
         }
     }
     
+    this.updateHighscores = function(){
+        if(window.localStorage){
+            window.localStorage["highscores"] = JSON.stringify(this.highscores);
+        }
+        
+        var out = "";
+        
+        for(var i in this.highscores){
+            if( !this.highscores.hasOwnProperty(i) ) continue;
+            out+="<div><h4>"+i.toString().toUpperCase()+"</h4><span> "+this.highscores[i]+"</span></div>";
+        }
+        
+        document.getElementById("highscores").innerHTML = out;
+    }
+    
     this.gameOver = function(_msg){
         //alert(_msg);
         this.msg(_msg);
         this.msg("Highscore: "+this.highscores[this.gameDifficulty]);
         
-        if(window.localStorage){
-            window.localStorage["highscores"] = JSON.stringify(this.highscores);
-        }
+        this.updateHighscores();
         
         clearInterval(this.gameTimer);
         
