@@ -1,0 +1,30 @@
+html{
+    font-family: "Avenir", "Calibri", "Sans";
+}
+
+table#gameboard{
+    border-collapse: collapse;
+    border: 5px solid black;
+}
+
+#gameboard td{
+    width:10px;
+    height:10px;
+    border: 1px solid black;
+}
+
+#gameboard td.snake{
+    background: green;
+}
+
+#gameboard td.wall{
+    background: black;
+}
+
+#gameboard td.food.eternal_apple, #gameboard td.food.apple{
+    background: red;
+}
+
+#gameboard td.food.shrink{
+    background: blue;
+}
