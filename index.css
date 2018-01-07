@@ -1,5 +1,21 @@
+@font-face{
+    font-family: "Avenir";
+    src: url(Avenir/AvenirMedium.otf);
+}
+
+@font-face{
+    font-family: "AvenirLight";
+    src: url(Avenir/AvenirBook.otf);
+}
+
+@font-face{
+    font-family: "AvenirRoman";
+    src: url(Avenir/AvenirRoman.otf);
+}
+
+
 html{
-    font-family: "Avenir", "Calibri", "Sans";
+    font-family: "AvenirRoman", "Calibri", "Sans";
 }
 
 table#gameboard{
@@ -35,7 +51,9 @@ h2.highscores{
 }
 
 #highscores div h4{
-    color:#444;
+    font-family: "AvenirLight";
+    
+    color:#333;
     font-size:16px;
     display: inline;
 }
