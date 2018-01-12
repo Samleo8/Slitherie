@@ -4,9 +4,9 @@ var Game = function(){
     this.snakeDirection;
     
     this.highscores = {
-        "normal":3,
-        "steroids":3,
-        "slitherie":3
+        "normal":0,
+        "steroids":0,
+        "slitherie":0
     };
     
     this.directions = {
@@ -34,8 +34,8 @@ var Game = function(){
     this.defaultDifficulty = "slitherie";
     this.gameDifficulty;
     this.difficulty = {
-        "normal":{
-            "time":500,
+        "easy":{
+            "time":100,
             
             "foodProb":{
                 "apple":9,
@@ -49,7 +49,7 @@ var Game = function(){
             "startingFood":5
         },
         "steroids":{
-            "time":80,
+            "time":50,
             
             "foodProb":{
                 "apple":6,
@@ -63,7 +63,7 @@ var Game = function(){
             "startingFood":6
         },
         "slitherie":{
-            "time":60,
+            "time":40,
             
             "foodProb":{
                 "apple":4,
@@ -123,9 +123,14 @@ var Game = function(){
         
             menu.innerHTML = out;
         
-            menu.addEventListener("mouseup",function(){ self.togglePause("pause"); })
+            menu.addEventListener("focus",function(){ self.togglePause("pause"); })
+            menu.addEventListener("blur",function(){ self.togglePause("play"); })
         
-            menu.addEventListener("change",function(){ console.log("Difficulty Changed: "+this.value); self.init( this.value ); })
+            menu.addEventListener("change",function(){
+                window.focus();
+                
+                self.gameOver("Difficulty Changed: "+this.value.toLowerCase(),this.value.toLowerCase());
+            });
         
         //Highscores
         if(window.localStorage){
@@ -186,7 +191,7 @@ var Game = function(){
         }
         
         //Event Listeners and Timers
-        this.gameTimer = setInterval(function(){ self.nextFrame(); }, this.gameSpeed);
+        this.gameTimer = setInterval(function(){ self.nextFrame(); }, self.gameSpeed);
         this.gamePaused = false;
         
         window.addEventListener("keydown", function(e){ self.keyPress(e); } );
@@ -291,13 +296,15 @@ var Game = function(){
                 this.gamePaused = true;
                 break;
             case "play":
+            case "run":
             case "unpause":
-                this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, this.gameSpeed);
+                clearInterval(this.gameTimer);
+                this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, self.gameSpeed);
                 this.gamePaused = false;
                 break;
             default:
                 if(this.gamePaused){
-                    this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, this.gameSpeed);
+                    this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, self.gameSpeed);
                     this.gamePaused = false;
                 }
                 else{
@@ -325,7 +332,7 @@ var Game = function(){
             }
         }
         
-        if(e.keyCode == 32){
+        if(e.keyCode == 80){
             this.togglePause();
         }
     }
@@ -364,7 +371,7 @@ var Game = function(){
         document.getElementById("highscores").innerHTML = out;
     }
     
-    this.gameOver = function(_msg){
+    this.gameOver = function(_msg,_diff){
         //alert(_msg);
         this.msg(_msg);
         this.msg("Highscore: "+this.highscores[this.gameDifficulty]);
@@ -373,7 +380,8 @@ var Game = function(){
         
         clearInterval(this.gameTimer);
         
-        this.init();
+        _diff = (typeof _diff == "undefined")?this.gameDifficulty:_diff;
+        this.init(_diff);
     }
     
     this.msg = function(_msg){
