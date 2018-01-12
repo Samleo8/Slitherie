@@ -4,7 +4,7 @@ var Game = function(){
     this.snakeDirection;
     
     this.highscores = {
-        "normal":0,
+        "easy":0,
         "steroids":0,
         "slitherie":0
     };
