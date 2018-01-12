@@ -13,36 +13,35 @@
     src: url(Avenir/AvenirRoman.otf);
 }
 
-
-html{
+*{
     font-family: "AvenirRoman", "Calibri", "Sans";
 }
 
 table#gameboard{
     border-collapse: collapse;
-    border: 5px solid black;
+    border: 5px solid #263238;
 }
 
 #gameboard td{
     width:10px;
     height:10px;
-    border: 1px solid black;
+    border: 1px solid #263238;
 }
 
 #gameboard td.snake{
-    background: green;
+    background: #4caf50;
 }
 
 #gameboard td.wall{
-    background: black;
+    background: #37474f;
 }
 
 #gameboard td.food.eternal_apple, #gameboard td.food.apple{
-    background: red;
+    background: #66bb6a;
 }
 
 #gameboard td.food.shrink{
-    background: blue;
+    background: #64b5f6;
 }
 
 #difficulty_menu h2{
