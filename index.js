@@ -35,46 +35,46 @@ var Game = function(){
     this.gameDifficulty;
     this.difficulty = {
         "easy":{
-            "time":100,
+            "time":80,
             
             "foodProb":{
-                "apple":9,
-                "wall":4,
-                "shrink":2
+                "apple":11,
+                "wall":6,
+                "shrink":4
             },
             probArray:[],
             
-            "startingApples":5,
-            "startingWalls":5,
-            "startingFood":5
+            "startingApples":7,
+            "startingWalls":7,
+            "startingFood":7
         },
         "steroids":{
             "time":50,
             
             "foodProb":{
-                "apple":6,
-                "wall":6,
-                "shrink":3
+                "apple":8,
+                "wall":8,
+                "shrink":5
             },
             probArray:[],
             
-            "startingApples":3,
-            "startingWalls":8,
-            "startingFood":6
+            "startingApples":5,
+            "startingWalls":10,
+            "startingFood":8
         },
         "slitherie":{
             "time":40,
             
             "foodProb":{
-                "apple":4,
-                "wall":8,
-                "shrink":3
+                "apple":7,
+                "wall":10,
+                "shrink":4
             },
             probArray:[],
             
-            "startingApples":2,
-            "startingWalls":10,
-            "startingFood":10
+            "startingApples":4,
+            "startingWalls":12,
+            "startingFood":12
         }
     }; //milliseconds 
 
@@ -82,7 +82,7 @@ var Game = function(){
     
     this.gamePaused = false;
     
-    this.gameSize = 25;
+    this.gameSize = 30;
     
     //Food
     this.food = {};
@@ -127,7 +127,7 @@ var Game = function(){
             menu.addEventListener("blur",function(){ self.togglePause("play"); })
         
             menu.addEventListener("change",function(){
-                window.focus();
+                menu.blur();
                 
                 self.gameOver("Difficulty Changed: "+this.value.toLowerCase(),this.value.toLowerCase());
             });
