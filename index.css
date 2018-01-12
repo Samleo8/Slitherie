@@ -32,12 +32,16 @@ table#gameboard{
     background: #4caf50;
 }
 
+#gameboard td.snakehead{
+    background: #388e3c;
+}
+
 #gameboard td.wall{
     background: #37474f;
 }
 
 #gameboard td.food.eternal_apple, #gameboard td.food.apple{
-    background: #66bb6a;
+    background: #ffa726;
 }
 
 #gameboard td.food.shrink{
@@ -47,6 +51,10 @@ table#gameboard{
 #difficulty_menu h2{
     display: inline-block;
     padding-right: 10px;
+}
+
+h1{
+    margin-bottom: 0px;
 }
 
 h2.highscores, #difficulty_menu h2{

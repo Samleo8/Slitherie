@@ -207,7 +207,7 @@ var Game = function(){
             x = this.snake[i].x;
             y = this.snake[i].y;
             
-            document.getElementById("cell_"+x+"_"+y).className = "snake";    
+            document.getElementById("cell_"+x+"_"+y).className = (i==this.snake.length-1)?"snakehead":"snake";
         }
         
         this.highscores[this.gameDifficulty] = Math.max(this.highscores[this.gameDifficulty],this.snake.length);
