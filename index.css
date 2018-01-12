@@ -45,7 +45,12 @@ table#gameboard{
     background: blue;
 }
 
-h2.highscores{
+#difficulty_menu h2{
+    display: inline-block;
+    padding-right: 10px;
+}
+
+h2.highscores, #difficulty_menu h2{
     font-size: 21px;
     margin-bottom: 5px;
 }
