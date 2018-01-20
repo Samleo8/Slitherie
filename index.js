@@ -194,7 +194,8 @@ var Game = function(){
         this.gameTimer = setInterval(function(){ self.nextFrame(); }, self.gameSpeed);
         this.gamePaused = false;
         
-        window.addEventListener("keydown", function(e){ self.keyPress(e); } );
+        window.addEventListener("keydown", function(e){ self.keyDown(e); } );
+        window.addEventListener("keyup", function(e){ self.keyUp(e); } );
         
         console.log("New Game!");
     }
@@ -319,7 +320,7 @@ var Game = function(){
         }
     }
     
-    this.keyPress = function(e){
+    this.keyDown = function(e){
         for(j in this.directions){
             if(!this.directions.hasOwnProperty(j)) continue;
             
@@ -335,7 +336,9 @@ var Game = function(){
                 }
             }
         }
-        
+    }
+     
+    this.keyUp = function(e){
         if(e.keyCode == 80){
             this.togglePause();
         }
