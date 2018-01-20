@@ -393,7 +393,7 @@ var Game = function(){
         this.currMsgBox.spawn();
         this.prevMsgBox = this.currMsgBox;
         
-        console.log(_msg.toString().toTitleCase()+" message: "+_msg);
+        console.log(this.currMsgBox.type.toString().toTitleCase()+" Message: "+_msg);
     }
 }
 
@@ -409,15 +409,19 @@ var MessageBox = function(_msg,_type,_timeout,_prevMsgBox){
     this.prevMsgBox = (typeof _prevMsgBox == "undefined")?null:_prevMsgBox;
     
     this.spawn = function(){
-        if(this.prevMsgBox!=null) this.prevMsgBox.destroy();
+        //if(this.prevMsgBox!=null) this.prevMsgBox.destroy();
             
         if(this.msg == null) return;
+        
+        this.msgHolder = document.createElement("div");
+        this.msgHolder.className = "message_holder";
         
         this.msgbox = document.createElement("div");
         this.msgbox.className = "message_box appear "+this.type;
         this.msgbox.innerHTML = this.msg;
 
-        document.body.appendChild(this.msgbox);
+        this.msgHolder.appendChild(this.msgbox);
+        document.getElementById("global_message_holder").appendChild(this.msgHolder);
 
         var self = this;
 
@@ -433,8 +437,8 @@ var MessageBox = function(_msg,_type,_timeout,_prevMsgBox){
     this.destroy = function(){
         window.clearTimeout(this.fadeTimer);
         
-        if(this.msgbox.parentElement!=null) this.msgbox.parentElement.removeChild(this.msgbox);
-        //this = null;
+        if(this.msgHolder.parentElement!=null) this.msgHolder.parentElement.removeChild(this.msgHolder);
+
         delete this;
     }
 }

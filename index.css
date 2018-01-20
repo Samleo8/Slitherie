@@ -81,11 +81,25 @@ table#gameboard{
 }
 
 /*** MESSAGE BOX ***/
+#global_message_holder{
+    position: fixed;
+    top:0; left:0; right: 0; bottom: 0;
+    
+    z-index: -10;
+}
+
+.message_holder{
+    text-align: center;
+
+    margin-left: auto; margin-right: auto;
+    left:0; right: 0;
+    
+    height: 16px;
+}
+
 .message_box{
-    position: absolute;
-    top:10px;
+    display: inline-block;
     padding:8px 15px;
-    left:50%;
     
     font-size: 16px;
     text-align: center;
