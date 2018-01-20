@@ -427,14 +427,14 @@ var MessageBox = function(_msg,_type,_timeout,_prevMsgBox){
             self.fadeTimer = window.setTimeout(function(){
                 self.destroy();
             },self.fadeTimeout);
-
         },self.timeout);
     };
     
     this.destroy = function(){
         window.clearTimeout(this.fadeTimer);
         
-        this.msgbox.parentElement.removeChild(this.msgbox);
+        if(this.msgbox.parentElement!=null) this.msgbox.parentElement.removeChild(this.msgbox);
+        //this = null;
         delete this;
     }
 }
