@@ -17,6 +17,7 @@
     font-family: "AvenirRoman", "Calibri", "Sans";
 }
 
+/*** GAMEBOARD ***/
 table#gameboard{
     border-collapse: collapse;
     border: 5px solid #263238;
@@ -28,7 +29,7 @@ table#gameboard{
     border: 1px solid #263238;
 }
 
-#gameboard td.snake{
+#gameboard td.snake, .snake .legend_box{
     background: #4caf50;
 }
 
@@ -36,18 +37,50 @@ table#gameboard{
     background: #388e3c;
 }
 
-#gameboard td.wall{
+#gameboard td.wall, .wall .legend_box{
     background: #37474f;
 }
 
-#gameboard td.food.eternal_apple, #gameboard td.food.apple{
+#gameboard td.food.eternal_apple, #gameboard td.food.apple, .apple .legend_box{
     background: #ffa726;
 }
 
-#gameboard td.food.shrink{
+#gameboard td.food.shrink, .shrink .legend_box{
     background: #64b5f6;
 }
 
+/*** INSTRUCTIONS/LEGEND BOX ***/
+#legend{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    
+    width: 369px;
+    margin-top: 4px;
+}
+
+#legend .legend_entry{
+    flex: 1 auto;
+    text-align: center;
+}
+
+.legend_entry div{
+    display: inline;
+    font-family: "AvenirLight", "Calibri", "Sans";
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.legend_entry .legend_box{
+    display: inline-block;
+    margin-right: 1px;
+    
+    width:8px;
+    height:8px;
+    border: 1px solid #263238;
+}
+
+/*** DIFFICULTY MENU ***/
 #difficulty_menu h2{
     display: inline-block;
     padding-right: 10px;
