@@ -196,7 +196,7 @@ var Game = function(){
         
         window.addEventListener("keydown", function(e){ self.keyPress(e); } );
         
-        this.msg("New Game!");
+        console.log("New Game!");
     }
     
     this.render = function(){
@@ -306,10 +306,14 @@ var Game = function(){
                 if(this.gamePaused){
                     this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, self.gameSpeed);
                     this.gamePaused = false;
+                    
+                    this.msg("Game Resumed");
                 }
                 else{
                     clearInterval(this.gameTimer);
                     this.gamePaused = true;
+                    
+                    this.msg("Game Paused");
                 }
                 break;
         }
@@ -385,24 +389,30 @@ var Game = function(){
     }
     
     this.msg = function(_msg,_type,_timeout){
-        new MessageBox(_msg,_type,_timeout).spawn();
+        this.currMsgBox = new MessageBox(_msg,_type,_timeout,this.prevMsgBox);
+        this.currMsgBox.spawn();
+        this.prevMsgBox = this.currMsgBox;
         
         console.log(_msg.toString().toTitleCase()+" message: "+_msg);
     }
 }
 
-var MessageBox = function(_msg,_type,_timeout){
+var MessageBox = function(_msg,_type,_timeout,_prevMsgBox){
     this.fadeTimeout = 350; //ms
     this.defaultTimeout = 1000; //ms
     
-    if(typeof _msg == "undefined" || _msg==null || _msg.toString() == ""){
-       this.msg = _msg.toString();
-    }
+    this.msg = (typeof _msg == "undefined")?null:_msg.toString();
     
     this.type = (typeof _type == "undefined" || _type==null)?"info":_type;
     this.timeout = (typeof _timeout == "undefined" || _timeout==null)?this.defaultTimeout:_timeout;
     
+    this.prevMsgBox = (typeof _prevMsgBox == "undefined")?null:_prevMsgBox;
+    
     this.spawn = function(){
+        if(this.prevMsgBox!=null) this.prevMsgBox.destroy();
+            
+        if(this.msg == null) return;
+        
         this.msgbox = document.createElement("div");
         this.msgbox.className = "message_box appear "+this.type;
         this.msgbox.innerHTML = this.msg;
