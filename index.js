@@ -308,13 +308,13 @@ var Game = function(){
                     this.gameTimer = window.setInterval( function(){ self.nextFrame(); }, self.gameSpeed);
                     this.gamePaused = false;
                     
-                    this.msg("Game Resumed");
+                    //this.msg("Game Resumed");
                 }
                 else{
                     clearInterval(this.gameTimer);
                     this.gamePaused = true;
                     
-                    this.msg("Game Paused");
+                    //this.msg("Game Paused");
                 }
                 break;
         }
