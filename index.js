@@ -235,7 +235,7 @@ var Game = function(){
         
         //Gameover due to wall
         if( newX<0 || newX>=this.gameSize || newY<0 || newY>=this.gameSize || this.food[newHeadCoord.print()]=="wall"){ 
-            this.gameOver("Stop banging the wall, fool!");
+            this.gameOver("Can stop banging the wall onot?");
             return;
         }
         //Gameover due to self eat
@@ -398,7 +398,7 @@ var Game = function(){
 }
 
 var MessageBox = function(_msg,_type,_timeout,_prevMsgBox){
-    this.fadeTimeout = 350; //ms
+    this.fadeTimeout = 550; //ms
     this.defaultTimeout = 1000; //ms
     
     this.msg = (typeof _msg == "undefined")?null:_msg.toString();
