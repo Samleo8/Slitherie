@@ -105,7 +105,7 @@ var Game = function(){
         this.startingRandFood = 10;
         
         //Difficulty
-        this.gameDifficulty = (typeof _diff=="undefined")?this.defaultDifficulty:_diff;
+        this.gameDifficulty = (typeof _diff=="undefined" || _diff==null)?this.defaultDifficulty:_diff;
         this.gameSpeed = this.difficulty[this.gameDifficulty].time;
         
             //Difficulty Menu
@@ -338,13 +338,13 @@ var Game = function(){
     }
     
     this.spawnFood = function(_type,_coords){
-        var coords = ( typeof _coords=="undefined")?new Coord(0,0).randExcl(
+        var coords = ( typeof _coords=="undefined" || _coords==null)?new Coord(0,0).randExcl(
             new Coord(0,0),
             new Coord(this.gameSize, this.gameSize),
             this.snake.concat(this.foodCoords)
         ):_coords;
         
-        if( typeof _type=="undefined" || _type == "random"){
+        if( typeof _type=="undefined" || _type==null || _type == "random"){
             _type = this.difficulty[this.gameDifficulty].probArray[Math.floor(Math.random()*this.difficulty[this.gameDifficulty].probArray.length)];
         }
         
@@ -374,18 +374,58 @@ var Game = function(){
     this.gameOver = function(_msg,_diff){
         //alert(_msg);
         this.msg(_msg);
-        this.msg("Highscore: "+this.highscores[this.gameDifficulty]);
+        console.log("Highscore: "+this.highscores[this.gameDifficulty]);
         
         this.updateHighscores();
         
         clearInterval(this.gameTimer);
         
-        _diff = (typeof _diff == "undefined")?this.gameDifficulty:_diff;
+        _diff = (typeof _diff == "undefined" || _diff==null)?this.gameDifficulty:_diff;
         this.init(_diff);
     }
     
-    this.msg = function(_msg){
-        console.log(_msg);
+    this.msg = function(_msg,_type,_timeout){
+        new MessageBox(_msg,_type,_timeout).spawn();
+        
+        console.log(_msg.toString().toTitleCase()+" message: "+_msg);
+    }
+}
+
+var MessageBox = function(_msg,_type,_timeout){
+    this.fadeTimeout = 350; //ms
+    this.defaultTimeout = 1000; //ms
+    
+    if(typeof _msg == "undefined" || _msg==null || _msg.toString() == ""){
+       this.msg = _msg.toString();
+    }
+    
+    this.type = (typeof _type == "undefined" || _type==null)?"info":_type;
+    this.timeout = (typeof _timeout == "undefined" || _timeout==null)?this.defaultTimeout:_timeout;
+    
+    this.spawn = function(){
+        this.msgbox = document.createElement("div");
+        this.msgbox.className = "message_box appear "+this.type;
+        this.msgbox.innerHTML = this.msg;
+
+        document.body.appendChild(this.msgbox);
+
+        var self = this;
+
+        this.disappearTimer = window.setTimeout(function(){
+            window.clearTimeout(self.disappearTimer);
+            self.msgbox.className = self.msgbox.className.replaceAll(" appear "," disappear ");
+            self.fadeTimer = window.setTimeout(function(){
+                self.destroy();
+            },self.fadeTimeout);
+
+        },self.timeout);
+    };
+    
+    this.destroy = function(){
+        window.clearTimeout(this.fadeTimer);
+        
+        this.msgbox.parentElement.removeChild(this.msgbox);
+        delete this;
     }
 }
 
@@ -425,8 +465,13 @@ var Coord = function(_x,_y){
     }
 }
 
+//PROTOTYPE
 String.prototype.toTitleCase = function(){
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+String.prototype.replaceAll = function(target,replacement){
+    return this.split(target).join(replacement);
 }
 
 //GAME

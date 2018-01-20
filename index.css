@@ -80,6 +80,42 @@ table#gameboard{
     border: 1px solid #263238;
 }
 
+/*** MESSAGE BOX ***/
+.message_box{
+    position: absolute;
+    top:20px;
+    left:50%;
+    
+    font-size: 16px;
+    text-align: center;
+    
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+    
+    transition: all 0.3s ease;
+}
+
+.message_box.appear{
+    opacity: 1;
+}
+
+.message_box.disappear{
+    opacity: 0;
+}
+
+.message_box.info{
+    border: 1px #e65100 solid;
+    background: #ffca28;
+    color: black;
+}
+
+.message_box.error{
+    border: 1px #b71c1c solid;
+    background: #e53935;
+    color: white;
+}
+
 /*** DIFFICULTY MENU ***/
 #difficulty_menu h2{
     display: inline-block;
